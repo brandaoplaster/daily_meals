@@ -5,11 +5,11 @@ defmodule DailyMeals.Meal do
 
   @primary_key {:id, :binary_id, autognerate: true}
 
-  @required_params [:description, :consumption_date, :calories]
+  @required_params [:description, :date, :calories]
 
   schema "meals" do
     field :description, :string
-    field :consumption_date, :naive_datetime
+    field :date, :naive_datetime
     field :calories, :integer
 
     timestamps()

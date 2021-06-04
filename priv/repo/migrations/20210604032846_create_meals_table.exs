@@ -4,7 +4,7 @@ defmodule DailyMeals.Repo.Migrations.CreateMealsTable do
   def change do
     create table :meals do
       add :description, :string
-      add :consumption_date, :naive_datetime
+      add :date, :naive_datetime
       add :calories, :integer
 
       timestamps()
