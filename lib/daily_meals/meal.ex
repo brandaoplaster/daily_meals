@@ -3,7 +3,7 @@ defmodule DailyMeals.Meal do
 
   import Ecto.Changeset
 
-  @primary_key {:id, :binary_id, autognerate: true}
+  @primary_key {:id, :binary_id, autogenerate: true}
 
   @required_params [:description, :date, :calories]
 
