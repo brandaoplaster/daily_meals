@@ -3,8 +3,6 @@ defmodule DailyMeals.Meal do
 
   import Ecto.Changeset
 
-  alias Ecto.Changeset
-
   @primary_key {:id, :binary_id, autognerate: true}
 
   @required_params [:description, :consumption_date, :calories]
@@ -18,5 +16,9 @@ defmodule DailyMeals.Meal do
   end
 
   def changeset(params) do
+    %__MODULE__{}
+    |> cast(params, @required_params)
+    |> validate_required(@required_params)
+    |> validate_number(:calories, greater_than_or_equal_to: 1)
   end
 end
