@@ -15,8 +15,8 @@ defmodule DailyMeals.Meal do
     timestamps()
   end
 
-  def changeset(params) do
-    %__MODULE__{}
+  def changeset(struct \\ %__MODULE__{}, params) do
+    struct
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> validate_number(:calories, greater_than_or_equal_to: 1)
