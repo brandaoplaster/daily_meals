@@ -3,17 +3,39 @@ defmodule DailyMealsWeb.MealsView do
 
   alias DailyMeals.Meal
 
-  def render("create.json", %{meal: %Meal{}} = meal) do
+  def render("create.json", %{
+        meal: %Meal{
+          id: id,
+          description: description,
+          date: date,
+          calories: calories
+        }
+      }) do
     %{
-      message: "Meal created",
       meal: %{
-        id: meal.id,
-        description: meal.description,
-        date: meal.date,
-        calories: meal.calories
+        id: id,
+        description: description,
+        date: date,
+        calories: calories
       }
     }
   end
 
-  def render("meal.json", %{meal: %Meal{}} = meal), do: %{meal: meal}
+  def render("meal.json", %{
+        meal: %Meal{
+          id: id,
+          description: description,
+          date: date,
+          calories: calories
+        }
+      }) do
+    %{
+      meal: %{
+        id: id,
+        description: description,
+        date: date,
+        calories: calories
+      }
+    }
+  end
 end
