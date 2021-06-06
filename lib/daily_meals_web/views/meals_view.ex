@@ -14,4 +14,6 @@ defmodule DailyMealsWeb.MealsView do
       }
     }
   end
+
+  def render("meal.json", %{meal: %Meal{}} = meal), do: %{meal: meal}
 end
