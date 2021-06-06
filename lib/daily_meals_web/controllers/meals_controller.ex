@@ -29,4 +29,12 @@ defmodule DailyMealsWeb.MealsController do
       |> text("")
     end
   end
+
+  def update(conn, params) do
+    with {:ok, %Meal{} = meal} <- DailyMeals.update_meal(params) do
+      conn
+      |> put_status(:ok)
+      |> render("meal.json", meal: meal)
+    end
+  end
 end

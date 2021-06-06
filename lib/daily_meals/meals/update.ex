@@ -3,7 +3,7 @@ defmodule DailyMeals.Meals.Update do
 
   def call(%{"id" => id} = params) do
     with %Meal{} = meal <- Repo.get(Meal, id) do
-      {:ok, do_update(meal, params)}
+      do_update(meal, params)
     else
       nil -> {:error, Error.build_meal_not_found_error()}
     end
@@ -16,7 +16,7 @@ defmodule DailyMeals.Meals.Update do
     |> handle_update()
   end
 
-  defp handle_update({:ok, %Meal{}} = result), do: result
+  defp handle_update({:ok, %Meal{}} = meal), do: meal
 
   defp handle_update({:error, result}) do
     {:error, Error.build_meal_not_update(result)}
