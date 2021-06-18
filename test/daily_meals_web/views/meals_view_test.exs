@@ -1,0 +1,50 @@
+defmodule DailyMealsWeb.MealsViewTest do
+  use DailyMealsWeb.ConnCase, async: true
+
+  import Phoenix.View
+
+  alias DailyMealsWeb.MealsView
+
+  test "render create.json" do
+    params = %{
+      calories: 20,
+      date: ~N[2021-05-02 12:00:00],
+      description: "Coffee"
+    }
+
+    {_ok, meal} = DailyMeals.create_meal(params)
+
+    response = render(MealsView, "create.json", meal: meal)
+
+    assert %{
+             meal: %{
+               calories: 20,
+               date: ~N[2021-05-02 12:00:00],
+               description: "Coffee",
+               id: _id
+             },
+             message: "Meal created!"
+           } = response
+  end
+
+  test "render meal.json" do
+    params = %{
+      calories: 20,
+      date: ~N[2021-05-02 12:00:00],
+      description: "Coffee"
+    }
+
+    {_ok, meal} = DailyMeals.create_meal(params)
+
+    response = render(MealsView, "meal.json", meal: meal)
+
+    assert %{
+             meal: %{
+               calories: 20,
+               date: ~N[2021-05-02 12:00:00],
+               description: "Coffee",
+               id: _id
+             }
+           } = response
+  end
+end
