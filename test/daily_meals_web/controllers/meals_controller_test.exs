@@ -81,6 +81,35 @@ defmodule DailyMeals.MealsControllerTest do
   end
 
   describe "delete/2" do
+    test "when id exist, delete the meal", %{conn: conn} do
+      params = %{
+        calories: 20,
+        date: ~N[2021-05-02 12:00:00],
+        description: "Coffee"
+      }
+
+      {:ok, meal} = DailyMeals.create_meal(params)
+
+      id = meal.id
+
+      response =
+        conn
+        |> delete(Routes.meals_path(conn, :delete, id))
+        |> response(:no_content)
+
+      assert "" = response
+    end
+
+    test "when id not exist, return an error", %{conn: conn} do
+      id = "594a146a-2ead-40cf-9f76-1e01fcfebdbe"
+
+      response =
+        conn
+        |> delete(Routes.meals_path(conn, :delete, id))
+        |> json_response(:not_found)
+
+      assert %{"message" => "Meal not found"} = response
+    end
   end
 
   describe "update/2" do
