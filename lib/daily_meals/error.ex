@@ -16,7 +16,7 @@ defmodule DailyMeals.Error do
 
   def build_meal_not_found_error, do: build(:not_found, "Meal not found")
 
-  def build_meal_not_update(%Changeset{} = changeset) do
+  def build_not_update(%Changeset{} = changeset) do
     build(:bad_request, changeset)
   end
 end

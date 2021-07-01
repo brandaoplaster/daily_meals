@@ -6,6 +6,7 @@ defmodule DailyMeals do
 
   alias DailyMeals.Users.Create, as: UserCreate
   alias DailyMeals.Users.Get, as: UserGet
+  alias DailyMeals.Users.Update, as: UserUpdate
 
   defdelegate create_meal(params), to: MealCreate, as: :call
   defdelegate get_meal_by_id(id), to: MealGet, as: :get_by_id
@@ -14,4 +15,5 @@ defmodule DailyMeals do
 
   defdelegate create_user(params), to: UserCreate, as: :call
   defdelegate get_user_by_id(id), to: UserGet, as: :get_user_by_id
+  defdelegate update_user(params), to: UserUpdate, as: :call
 end

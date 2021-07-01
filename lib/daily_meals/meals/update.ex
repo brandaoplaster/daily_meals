@@ -19,6 +19,6 @@ defmodule DailyMeals.Meals.Update do
   defp handle_update({:ok, %Meal{}} = meal), do: meal
 
   defp handle_update({:error, result}) do
-    {:error, Error.build_meal_not_update(result)}
+    {:error, Error.build_not_update(result)}
   end
 end
