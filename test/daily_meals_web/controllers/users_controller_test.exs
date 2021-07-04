@@ -77,4 +77,40 @@ defmodule DailyMeals.UsersControllerTest do
       assert %{"message" => "User not found"} = response
     end
   end
+
+  describe "update/2" do
+    test "when id exist, update the user", %{conn: conn} do
+      params = build(:user_params)
+
+      {:ok, user} = DailyMeals.create_user(params)
+
+      updated_params = %{
+        name: "Joe Mike"
+      }
+
+      response =
+        conn
+        |> put(Routes.users_path(conn, :update, user.id, updated_params))
+        |> json_response(:ok)
+
+      assert %{
+               "user" => %{
+                 "cpf" => "12345678901",
+                 "email" => "joe@gmail.com",
+                 "name" => "Joe Mike"
+               }
+             } = response
+    end
+
+    test "when not exist id, return an error", %{conn: conn} do
+      id = "5e694bc0-78fc-4600-bcd0-0733b7540a6e"
+
+      response =
+        conn
+        |> put(Routes.users_path(conn, :update, id))
+        |> json_response(:not_found)
+
+      assert %{"message" => "User not found!"} = response
+    end
+  end
 end
