@@ -113,4 +113,30 @@ defmodule DailyMeals.UsersControllerTest do
       assert %{"message" => "User not found!"} = response
     end
   end
+
+  describe "delete/2" do
+    test "when id exist, delete the user", %{conn: conn} do
+      params = build(:user_params)
+
+      {:ok, user} = DailyMeals.create_user(params)
+
+      response =
+        conn
+        |> delete(Routes.users_path(conn, :delete, user.id))
+        |> response(:no_content)
+
+      assert "" = response
+    end
+
+    test "when id not exist, return an error", %{conn: conn} do
+      id = "5e694bc0-78fc-4600-bcd0-0733b7540a6e"
+
+      response =
+        conn
+        |> delete(Routes.users_path(conn, :delete, id))
+        |> json_response(:not_found)
+
+      assert %{"message" => "User not found!"} = response
+    end
+  end
 end
