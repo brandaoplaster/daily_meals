@@ -2,14 +2,18 @@ defmodule DailyMealsWeb.MealsViewTest do
   use DailyMealsWeb.ConnCase, async: true
 
   import Phoenix.View
+  import DailyMeals.Factory
 
   alias DailyMealsWeb.MealsView
 
   test "render create.json" do
+    user = insert(:user)
+
     params = %{
       calories: 20,
       date: ~N[2021-05-02 12:00:00],
-      description: "Coffee"
+      description: "Coffee",
+      user_id: user.id
     }
 
     {_ok, meal} = DailyMeals.create_meal(params)
@@ -28,10 +32,13 @@ defmodule DailyMealsWeb.MealsViewTest do
   end
 
   test "render meal.json" do
+    user = insert(:user)
+
     params = %{
       calories: 20,
       date: ~N[2021-05-02 12:00:00],
-      description: "Coffee"
+      description: "Coffee",
+      user_id: user.id
     }
 
     {_ok, meal} = DailyMeals.create_meal(params)

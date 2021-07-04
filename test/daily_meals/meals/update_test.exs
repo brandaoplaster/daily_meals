@@ -1,14 +1,19 @@
 defmodule DailyMeals.Meals.UpdateTest do
   use DailyMeals.DataCase
 
+  import DailyMeals.Factory
+
   alias DailyMeals.Error
 
   describe "Update Meal" do
     test "when a valid id is given, returns the meal" do
+      user = insert(:user)
+
       params = %{
         calories: 20,
         date: ~N[2021-05-02 12:00:00],
-        description: "Coffee"
+        description: "Coffee",
+        user_id: user.id
       }
 
       {_ok, meal} = DailyMeals.create_meal(params)

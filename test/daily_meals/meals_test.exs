@@ -7,7 +7,12 @@ defmodule DailyMeals.MealsTest do
 
   describe "changeset/1" do
     test "when all params are valid, returns a valid changeset" do
-      params = %{description: "coffee", date: "2021-05-02 11:52:00", calories: 250}
+      params = %{
+        description: "coffee",
+        date: "2021-05-02 11:52:00",
+        calories: 250,
+        user_id: "388fccf4-f3bb-4822-9817-973a62158d20"
+      }
 
       response = Meal.changeset(params)
 

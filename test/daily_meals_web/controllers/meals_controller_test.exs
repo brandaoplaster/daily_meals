@@ -1,12 +1,17 @@
 defmodule DailyMeals.MealsControllerTest do
   use DailyMealsWeb.ConnCase, async: true
 
+  import DailyMeals.Factory
+
   describe "create/2" do
     test "when all params are valid, creates a meal", %{conn: conn} do
+      user = insert(:user)
+
       params = %{
         calories: 20,
         date: ~N[2021-05-02 12:00:00],
-        description: "Coffee"
+        description: "Coffee",
+        user_id: user.id
       }
 
       response =
@@ -29,7 +34,11 @@ defmodule DailyMeals.MealsControllerTest do
       params = %{description: "Banana"}
 
       expected_response = %{
-        "message" => %{"calories" => ["can't be blank"], "date" => ["can't be blank"]}
+        "message" => %{
+          "calories" => ["can't be blank"],
+          "date" => ["can't be blank"],
+          "user_id" => ["can't be blank"]
+        }
       }
 
       response =
@@ -43,10 +52,13 @@ defmodule DailyMeals.MealsControllerTest do
 
   describe "get/2" do
     test "when id exist, return the meal", %{conn: conn} do
+      user = insert(:user)
+
       params = %{
         calories: 20,
         date: ~N[2021-05-02 12:00:00],
-        description: "Coffee"
+        description: "Coffee",
+        user_id: user.id
       }
 
       {:ok, meal} = DailyMeals.create_meal(params)
@@ -82,10 +94,13 @@ defmodule DailyMeals.MealsControllerTest do
 
   describe "delete/2" do
     test "when id exist, delete the meal", %{conn: conn} do
+      user = insert(:user)
+
       params = %{
         calories: 20,
         date: ~N[2021-05-02 12:00:00],
-        description: "Coffee"
+        description: "Coffee",
+        user_id: user.id
       }
 
       {:ok, meal} = DailyMeals.create_meal(params)
@@ -114,10 +129,13 @@ defmodule DailyMeals.MealsControllerTest do
 
   describe "update/2" do
     test "when id exist, update the meal", %{conn: conn} do
+      user = insert(:user)
+
       params = %{
         calories: 20,
         date: ~N[2021-05-02 12:00:00],
-        description: "Coffee"
+        description: "Coffee",
+        user_id: user.id
       }
 
       {:ok, meal} = DailyMeals.create_meal(params)

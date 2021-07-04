@@ -1,14 +1,19 @@
 defmodule DailyMeals.Meals.CreateTest do
   use DailyMeals.DataCase
 
+  import DailyMeals.Factory
+
   alias DailyMeals.Error
 
   describe "call/1" do
     test "when all params are valid, returns the meal" do
+      user = insert(:user)
+
       params = %{
         calories: 20,
         date: ~N[2021-05-02 12:00:00],
-        description: "coffee"
+        description: "coffee",
+        user_id: user.id
       }
 
       response = DailyMeals.create_meal(params)
@@ -30,7 +35,7 @@ defmodule DailyMeals.Meals.CreateTest do
 
       response = DailyMeals.create_meal(params)
 
-      expected_response = %{description: ["can't be blank"]}
+      expected_response = %{description: ["can't be blank"], user_id: ["can't be blank"]}
 
       assert {:error, %Error{status: :bad_request, message: changeset}} = response
       assert errors_on(changeset) == expected_response
